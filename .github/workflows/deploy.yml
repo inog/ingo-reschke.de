@@ -1,0 +1,36 @@
+name: Deploy to Netcup
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Erlaubt manuelles Auslösen in GitHub Actions
+
+concurrency:
+  group: deploy-netcup
+  cancel-in-progress: false
+
+jobs:
+  web-deploy:
+    name: Deploy to Netcup Webhosting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync files via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.NETCUP_FTP_SERVER }}
+          username: ${{ secrets.NETCUP_FTP_USERNAME }}
+          password: ${{ secrets.NETCUP_FTP_PASSWORD }}
+          server-dir: ${{ secrets.NETCUP_SERVER_DIR || 'httpdocs/' }}
+          protocol: ftps
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.idea/**
+            **/README.md
+            **/.gitignore

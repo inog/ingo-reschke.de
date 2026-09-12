@@ -32,7 +32,13 @@ A clean, professional single-page website showcasing professional profile and co
 
 ## Deployment
 
-This is a static website that can be deployed to any web hosting service or static site hosting platform (GitHub Pages, Netlify, Vercel, etc.).
+Automatisiertes Deployment via GitHub Actions zu Netcup Webhosting (.github/workflows/deploy.yml) per FTPS.
+
+### Benötigte GitHub Repository Secrets:
+* `NETCUP_FTP_SERVER`: Netcup FTPS Hostname (z. B. `hostingXXXXXX.a2e12.netcup.net` oder `ingo-reschke.de`)
+* `NETCUP_FTP_USERNAME`: Netcup FTP-Benutzername (z. B. `hostingXXXXXX` oder angelegter FTP-Nutzer)
+* `NETCUP_FTP_PASSWORD`: Das zugehörige FTP-Passwort
+* `NETCUP_SERVER_DIR` *(optional)*: Zielverzeichnis auf dem Server (Standard: `httpdocs/`)
 
 ## Local Development
 
