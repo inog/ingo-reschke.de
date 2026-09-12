@@ -1,6 +1,6 @@
 # Personal Website
 
-Personal homepage for Ingo Reschke - Software Architect
+Personal homepage for Ingo Reschke - IT Solution Architect
 
 ## Overview
 

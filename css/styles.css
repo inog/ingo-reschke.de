@@ -105,7 +105,7 @@ h1 {
 /* Visit Card Styles */
 #visit-card {
     background: #fff;
-    max-width: 500px;
+    max-width: 560px;
     margin: 40px auto 0 auto;
     padding: 32px 24px;
     border-radius: 18px;
@@ -146,6 +146,7 @@ h1 {
     margin-bottom: 18px;
     color: #444;
     font-size: 1em;
+    line-height: 1.6;
 }
 
 .contact-info p {
