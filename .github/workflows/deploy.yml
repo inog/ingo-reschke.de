@@ -28,6 +28,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: ingo-reschke.de/httpdocs/website/
           protocol: ftps
+          security: loose
+          log-level: verbose
           exclude: |
             **/.git*
             **/.git*/**
