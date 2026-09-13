@@ -20,6 +20,37 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Diagnose FTP Server Directory
+        continue-on-error: true
+        run: |
+          python3 - << 'EOF' >> $GITHUB_STEP_SUMMARY
+          import os, ftplib, ssl
+          server = os.environ.get("FTP_SERVER", "")
+          user = os.environ.get("FTP_USERNAME", "")
+          password = os.environ.get("FTP_PASSWORD", "")
+          print("### 🔍 FTP Server Verzeichnisstruktur\n")
+          try:
+              ctx = ssl.create_default_context()
+              ctx.check_hostname = False
+              ctx.verify_mode = ssl.CERT_NONE
+              ftp = ftplib.FTP_TLS(context=ctx)
+              ftp.connect(server, 21, timeout=15)
+              ftp.login(user, password)
+              ftp.prot_p()
+              pwd = ftp.pwd()
+              print(f"- **Startverzeichnis (pwd)**: `{pwd}`\n")
+              print("```text")
+              ftp.dir()
+              print("```")
+              ftp.quit()
+          except Exception as e:
+              print(f"**Fehler beim FTP-Check**: `{e}`")
+          EOF
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+
       - name: Sync files via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
